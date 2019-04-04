@@ -109,3 +109,74 @@ console.log(archer.language); // Elvish
 console.log(archer.greet()); // Lilith offers a greeting in Elvish.
 console.log(mage.takeDamage()); // Bruce took damage.
 console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+
+class Villain extends Humanoid {
+  constructor(attributes) {
+    super(attributes);
+  }
+
+  // Methods
+  attack(object) {
+    object.healthPoints -= Math.floor(Math.random() * 5) + 1;
+    return `${this.name} savagely attacks ${object.name}.\n${object.name}'s healthpoints are now ${object.healthPoints}`;
+  }
+
+  fight(object) {
+    while(object.healthPoints > 0 && this.healthPoints > 0) {
+      console.log(this.attack(object));
+      console.log(object.attack(this));
+    }
+
+    if(object.healthPoints <= 0 && this.healthPoints <= 0) {
+      return [ object.destroy(), this.destroy() ];
+    } else if (object.healthPoints <= 0) {
+      return object.destroy();
+    } else {
+      return this.destroy();
+    }
+  }
+}
+
+class Hero extends Villain {
+  constructor(attributes) {
+    super(attributes);
+  }
+}
+
+const bob = new Villain({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 2,
+    height: 3,
+  },
+  healthPoints: 20,
+  name: `Bob`,
+  team: `Evil Knights of Death`,
+  weapons: [
+    `Flaming Sword`,
+    `Bow of Destruction`,
+  ],
+  language: `Evilese`,
+});
+
+const jane = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4,
+  },
+  healthPoints: 20,
+  name: `Jane`,
+  team: `Good Wizards of Happiness`,
+  weapons: [
+    `Blessed Staff of Wizardry`,
+    `Friendly Dagger of Pointiness`,
+  ],
+  language: `Goodish`,
+});
+
+console.log(bob.attack(mage));
+console.log(jane.attack(archer));
+console.log(bob.fight(jane));
