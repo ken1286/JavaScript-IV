@@ -50,10 +50,27 @@ class Student extends Person {
   PRAssignment(subject) {
     return `${this.name} has received a PR for ${subject}.`;
   }
+
+  sprintChallenge(subject) {
+    return `${this.name} has begun sprint challenge on ${subject}.`;
+  }
 }
 
 class ProjectManager extends Instructor {
+  constructor(attributes) {
+    super(attributes);
+    this.gradClassName = attributes.gradClassName;
+    this.favInstructor = attributes.favInstructor;
+  }
 
+  // Methods
+  standup(slackChan) {
+    return `${this.name} announces to ${slackChan}, @channel standy times!`;
+  }
+
+  debugsCode(studentObj, subject) {
+    return `${this.name} debugs ${studentObj.name}'s code on ${subject}.`;
+  }
 }
 
 const fred = new Instructor({
@@ -79,8 +96,23 @@ const ken = new Student({
   favSubjects: [`History`, `Coding`, `Video Games`]
 });
 
+const jill = new ProjectManager({
+  name: 'Jill',
+  location: 'Texas',
+  age: 37,
+  gender: 'female',
+  favLanguage: 'JavaScript',
+  specialty: 'Front-end',
+  catchPhrase: `Hey there what's up`
+});
+
 console.log(fred.demo(`Spiders`));
 console.log(fred.grade(ken, `Web Dev`));
+
 ken.listsSubjects();
 console.log(ken.PRAssignment(`Computer Science`));
 console.log(ken.speak());
+console.log(ken.sprintChallenge(`React`));
+
+console.log(jill.standup(`web19_jill`));
+console.log(jill.debugsCode(ken, `web dev`));
