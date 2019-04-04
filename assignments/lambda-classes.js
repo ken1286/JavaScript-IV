@@ -60,6 +60,16 @@ class Student extends Person {
   sprintChallenge(subject) {
     return `${this.name} has begun sprint challenge on ${subject}.`;
   }
+
+  graduate(instructorObj) {
+    if(this.grade < 70) {
+      console.log(`${this.name} has failed Lambda School! Try again!`);
+      instructorObj.adjustGrade(this);
+      this.graduate(instructorObj);
+    }
+
+    return `Congratulations ${this.name}! Your grade is ${this.grade} and you have graduated from Lambda School!`;
+  }
 }
 
 class ProjectManager extends Instructor {
@@ -126,3 +136,4 @@ console.log(jill.debugsCode(ken, `web dev`));
 console.log(ken.grade);
 console.log(jill.adjustGrade(ken));
 console.log(ken.grade);
+console.log(ken.graduate(jill));
