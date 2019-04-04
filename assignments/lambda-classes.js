@@ -30,6 +30,11 @@ class Instructor extends Person {
   grade(studentObj, subjectStr) {
     return `${studentObj.name} receives a perfect score on ${subjectStr}.`;
   }
+
+  adjustGrade(studentObj) {
+    let posOrNeg = Math.round(Math.random()) * 2 - 1;
+    return studentObj.grade += ((Math.floor(Math.random() * 20) + 1) * posOrNeg);
+  }
 }
 
 class Student extends Person {
@@ -38,6 +43,7 @@ class Student extends Person {
     this.previousBackground = attributes.previousBackground;
     this.className = attributes.className;
     this.favSubjects = attributes.favSubjects;
+    this.grade = Math.floor(Math.random() * 100) + 1;
   }
 
   // Methods
@@ -116,3 +122,7 @@ console.log(ken.sprintChallenge(`React`));
 
 console.log(jill.standup(`web19_jill`));
 console.log(jill.debugsCode(ken, `web dev`));
+
+console.log(ken.grade);
+console.log(jill.adjustGrade(ken));
+console.log(ken.grade);
